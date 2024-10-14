@@ -1,0 +1,43 @@
+#!/bin/bash
+PROJECTOR=c202-projector.thayer.dartmouth.edu
+# PROJECTOR=e116-5-projector.thayer.dartmouth.edu
+# PROJECTOR=e116-4-projector.thayer.dartmouth.edu
+
+# PROJECTOR=m210-projector.thayer.dartmouth.edu
+# PROJECTOR=c118-projector.thayer.dartmouth.edu
+
+
+# curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/power -d \"off\"
+curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/power -d \"on\"
+curl http://localhost:80/:thayer@${PROJECTOR}/power
+# curl http://localhost:80/:thayer@${PROJECTOR}/power
+curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/videoroute/1 -d \"33\"
+curl http://localhost:80/:thayer@${PROJECTOR}/videoroute/1
+# curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/videoroute/1 -d \"32\"
+# curl http://localhost:80/:thayer@${PROJECTOR}/videoroute/1
+exit
+
+let count=0 
+while true
+do
+	curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/power -d \"on\"
+	curl http://localhost:80/:thayer@${PROJECTOR}/power
+	sleep 15
+	# curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/power -d \"off\"
+	# curl http://localhost:80/:thayer@${PROJECTOR}/power
+	sleep 15
+	# curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/videoroute/1 -d \"33\"
+	curl http://localhost:80/:thayer@${PROJECTOR}/videoroute/1
+	let count=count+1
+	echo $count
+	sleep 1
+	echo "Press [CTRL+C] to stop..."
+done
+
+curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/power -d \"off\"
+# exit
+
+# sleep 5
+
+# curl -X PUT http://localhost:80/:thayer@${PROJECTOR}/videoroute/1 -d \"56\"
+# curl http://localhost:80/:thayer@${PROJECTOR}/videoroute/1
